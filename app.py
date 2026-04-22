@@ -359,18 +359,7 @@ def load_model():
     model_path = "models/sentiment_model.pkl"
     
     if not os.path.exists(model_path):
-        st.warning("⚠️ Model not found. Preparing data & training... ⏳")
-        
-        import subprocess
-        
-        # dataset generate karo
-        subprocess.run(["python", "data/generate_data.py"])
-        
-        # model train karo
-        subprocess.run(["python", "train_model.py"])
-    
-    if not os.path.exists(model_path):
-        st.error("❌ Model training failed!")
+        st.error("❌ Model file missing! Please upload it.")
         st.stop()
     
     with open(model_path, "rb") as f:
