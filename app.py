@@ -357,9 +357,13 @@ hr { border-color: var(--border) !important; }
 @st.cache_resource
 def load_model():
     model_path = "models/sentiment_model.pkl"
+    
     if not os.path.exists(model_path):
-        st.error("❌ Model not found. Please run `python train_model.py` first.")
-        st.stop()
+        st.warning("⚠️ Model not found. Training model... please wait ⏳")
+        
+        import subprocess
+        subprocess.run(["python", "train_model.py"])
+    
     with open(model_path, "rb") as f:
         return pickle.load(f)
 
