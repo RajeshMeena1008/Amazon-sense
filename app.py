@@ -359,10 +359,15 @@ def load_model():
     model_path = "models/sentiment_model.pkl"
     
     if not os.path.exists(model_path):
-        st.warning("⚠️ Model not found. Training model... please wait ⏳")
+        st.warning("⚠️ Model not found. Preparing data & training... ⏳")
         
-        import train_model
-        train_model.train_model()   # direct function call (better than subprocess)
+        import subprocess
+        
+        # dataset generate karo
+        subprocess.run(["python", "data/generate_data.py"])
+        
+        # model train karo
+        subprocess.run(["python", "train_model.py"])
     
     if not os.path.exists(model_path):
         st.error("❌ Model training failed!")
