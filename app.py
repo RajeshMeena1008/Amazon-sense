@@ -361,12 +361,15 @@ def load_model():
     if not os.path.exists(model_path):
         st.warning("⚠️ Model not found. Training model... please wait ⏳")
         
-        import subprocess
-        subprocess.run(["python", "train_model.py"])
+        import train_model
+        train_model.train_model()   # direct function call (better than subprocess)
+    
+    if not os.path.exists(model_path):
+        st.error("❌ Model training failed!")
+        st.stop()
     
     with open(model_path, "rb") as f:
         return pickle.load(f)
-
 
 def clean_text(text):
     text = str(text).lower()
